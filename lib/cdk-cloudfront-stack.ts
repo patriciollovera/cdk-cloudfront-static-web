@@ -58,7 +58,7 @@ export class CdkCloudfrontStack extends cdk.Stack {
             {
               domainName: domainName,
               validation: cdk.aws_certificatemanager.CertificateValidation.fromDns(myHostedZone),
-              subjectAlternativeNames: ['*.ceocom.com.ar'],
+              subjectAlternativeNames: [subdomainName],
             }
         );
 
@@ -139,7 +139,7 @@ export class CdkCloudfrontStack extends cdk.Stack {
         // Create an A record
         new route53.ARecord(this, 'MyRecord', {
           zone: myHostedZone,
-          recordName: 'www.ceocom.com.ar', // Replace with your own subdomain
+          recordName: subdomainName, // Replace with your own subdomain
           target: route53.RecordTarget.fromAlias(new targets.CloudFrontTarget(distribution)), // Replace with your own target, e.g., an ALB or CloudFront distribution
         });
   }
